@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93035E361C1939F700A7C065 /* NewYork.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 93035E351C1939F700A7C065 /* NewYork.mp3 */; };
+		93035E391C1A620300A7C065 /* movingStars.sks in Resources */ = {isa = PBXBuildFile; fileRef = 93035E371C1A620300A7C065 /* movingStars.sks */; };
+		93035E3A1C1A620300A7C065 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 93035E381C1A620300A7C065 /* spark.png */; };
 		9369698D1C190B33000CB7BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369698C1C190B33000CB7BA /* AppDelegate.swift */; };
 		9369698F1C190B33000CB7BA /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9369698E1C190B33000CB7BA /* GameScene.sks */; };
 		936969911C190B33000CB7BA /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936969901C190B33000CB7BA /* GameScene.swift */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		93035E351C1939F700A7C065 /* NewYork.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = NewYork.mp3; sourceTree = "<group>"; };
+		93035E371C1A620300A7C065 /* movingStars.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = movingStars.sks; sourceTree = "<group>"; };
+		93035E381C1A620300A7C065 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		936969891C190B33000CB7BA /* NewHorizons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewHorizons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9369698C1C190B33000CB7BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9369698E1C190B33000CB7BA /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -58,6 +64,9 @@
 		9369698B1C190B33000CB7BA /* NewHorizons */ = {
 			isa = PBXGroup;
 			children = (
+				93035E351C1939F700A7C065 /* NewYork.mp3 */,
+				93035E371C1A620300A7C065 /* movingStars.sks */,
+				93035E381C1A620300A7C065 /* spark.png */,
 				9369698C1C190B33000CB7BA /* AppDelegate.swift */,
 				9369698E1C190B33000CB7BA /* GameScene.sks */,
 				936969901C190B33000CB7BA /* GameScene.swift */,
@@ -128,10 +137,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93035E361C1939F700A7C065 /* NewYork.mp3 in Resources */,
 				9369698F1C190B33000CB7BA /* GameScene.sks in Resources */,
 				9369699B1C190B33000CB7BA /* LaunchScreen.storyboard in Resources */,
+				93035E3A1C1A620300A7C065 /* spark.png in Resources */,
 				936969981C190B33000CB7BA /* Assets.xcassets in Resources */,
 				936969961C190B33000CB7BA /* Main.storyboard in Resources */,
+				93035E391C1A620300A7C065 /* movingStars.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +273,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Mav3r1ck.NewHorizons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -272,6 +285,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Mav3r1ck.NewHorizons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -294,6 +308,7 @@
 				936969A11C190B33000CB7BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

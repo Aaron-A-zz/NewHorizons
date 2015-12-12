@@ -61,8 +61,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dayTimeLabel = childNodeWithName("dayTimeLabel") as! SKLabelNode
         asteroidsDodgedLabel = childNodeWithName("asteroidsDodgedLabel") as! SKLabelNode
         
-        
-        
         //Spawn Asteroids
         let spawnRandomAsteroid = SKAction.runBlock(spawnAsteroid)
         let waitTime = SKAction.waitForDuration(0.5)
@@ -102,7 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if touch.tapCount == 2 {
-            print("Fire The Cannons!")
+            //print("Fire The Cannons!")
             let shootBullets = SKAction.runBlock(SpawnBullets)
             runAction(shootBullets)
         }
@@ -132,10 +130,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func CollisionWithAsteroid(Asteroid: SKSpriteNode, Satellite: SKSpriteNode) {
-        Asteroid.removeFromParent()
-        spawnBrokenAsteroid(satellite.position)
         satellite.removeFromParent()
-        
+        Asteroid.removeFromParent()
+        spawnBrokenSat(Satellite.position)
+        spawnBrokenAsteroid(Asteroid.position)
+
         enumerateChildNodesWithName("asteroid") { //Changes the Asteroid name so its not counted after you die
             asteroid,_ in
             asteroid.name = "dontCountMe"
@@ -158,28 +157,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(broken3)
         addChild(broken4)
         
+        let waitTime = SKAction.waitForDuration(3.0)
+        let actionDone = SKAction.removeFromParent()
+        
         broken1.position = CGPoint(x: contactPoint.x - 50, y: contactPoint.y)
         broken1.physicsBody = SKPhysicsBody(texture: broken1.texture!, size: broken1.frame.size)
         broken1.physicsBody?.applyAngularImpulse(0.3)
         broken1.name = "broken1"
+        broken1.runAction(SKAction.sequence([waitTime, actionDone]))
         
         broken2.position = CGPoint(x: contactPoint.x - 25, y: contactPoint.y + 50)
         broken2.physicsBody = SKPhysicsBody(texture: broken2.texture!, size: broken2.frame.size)
         broken2.physicsBody?.applyAngularImpulse(0.2)
         broken2.name = "broken2"
+        broken2.runAction(SKAction.sequence([waitTime, actionDone]))
         
         broken3.position = CGPoint(x: contactPoint.x + 50, y: contactPoint.y + 25)
         broken3.physicsBody = SKPhysicsBody(texture: broken3.texture!, size: broken3.frame.size)
         broken3.physicsBody?.applyAngularImpulse(0.1)
         broken3.name = "broken3"
+        broken3.runAction(SKAction.sequence([waitTime, actionDone]))
         
         broken4.position = CGPoint(x: contactPoint.x + 50, y: contactPoint.y - 25)
         broken4.physicsBody = SKPhysicsBody(texture: broken4.texture!, size: broken4.frame.size)
         broken4.physicsBody?.applyAngularImpulse(0.1)
         broken4.name = "broken4"
+        broken4.runAction(SKAction.sequence([waitTime, actionDone]))
         
    
     }
+    
+    
+    func spawnBrokenSat(contactPoint: CGPoint ) {
+        let brokensat1 = SKSpriteNode(imageNamed: "brokenSat1")
+        let brokensat2 = SKSpriteNode(imageNamed: "brokenSat2")
+        let brokensat3 = SKSpriteNode(imageNamed: "brokenSat3")
+    
+        addChild(brokensat1)
+        addChild(brokensat2)
+        addChild(brokensat3)
+        
+        let waitTime = SKAction.waitForDuration(3.0)
+        let actionDone = SKAction.removeFromParent()
+        
+        brokensat1.position = CGPoint(x: contactPoint.x - 50, y: contactPoint.y)
+        brokensat1.physicsBody = SKPhysicsBody(texture: brokensat1.texture!, size: brokensat1.frame.size)
+        brokensat1.physicsBody?.applyAngularImpulse(0.3)
+        brokensat1.name = "brokensat1"
+        brokensat1.runAction(SKAction.sequence([waitTime, actionDone]))
+        
+        brokensat2.position = CGPoint(x: contactPoint.x - 25, y: contactPoint.y + 50)
+        brokensat2.physicsBody = SKPhysicsBody(texture: brokensat2.texture!, size: brokensat2.frame.size)
+        brokensat2.physicsBody?.applyAngularImpulse(0.2)
+        brokensat2.name = "brokensat2"
+        brokensat2.runAction(SKAction.sequence([waitTime, actionDone]))
+        
+        brokensat3.position = CGPoint(x: contactPoint.x + 50, y: contactPoint.y + 25)
+        brokensat3.physicsBody = SKPhysicsBody(texture: brokensat3.texture!, size: brokensat3.frame.size)
+        brokensat3.physicsBody?.applyAngularImpulse(0.1)
+        brokensat3.name = "brokensat3"
+        brokensat3.runAction(SKAction.sequence([waitTime, actionDone]))
+        
+    }
+
 
 
     func randomNumber(min min: CGFloat, max: CGFloat) -> CGFloat {
@@ -210,7 +250,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         asteroid.runAction(rotateAsteroid, withKey: "rotateAsteroid")
         let actionDone = SKAction.removeFromParent()
         asteroid.runAction(SKAction.sequence([rotateAsteroid,actionDone]))
-        
         
     }
     

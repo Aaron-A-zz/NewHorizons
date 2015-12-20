@@ -18,14 +18,14 @@ struct PhysicsCatagory {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-
-    var satellite = SKSpriteNode()
-    var pauseButton = SKSpriteNode()
-    var playButton = SKSpriteNode()
-    var minuteTimeLabel = SKLabelNode()
-    var hourTimeLabel = SKLabelNode()
-    var dayTimeLabel = SKLabelNode()
-    var asteroidsDodgedLabel = SKLabelNode()
+    
+    var satellite: SKSpriteNode?
+    var pauseButton: SKSpriteNode?
+    var playButton: SKSpriteNode?
+    var minuteTimeLabel: SKLabelNode?
+    var hourTimeLabel: SKLabelNode?
+    var dayTimeLabel: SKLabelNode?
+    var asteroidsDodgedLabel: SKLabelNode?
     var day = 0
     var hour = 0
     var minute = 0
@@ -44,22 +44,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Adding Stars
         if let stars = SKEmitterNode(fileNamed: "movingStars") {
-        stars.position = CGPoint(x: frame.size.width / 2, y: frame.size.height)
-        stars.zPosition = -1
-        addChild(stars)
+            stars.position = CGPoint(x: frame.size.width / 2, y: frame.size.height)
+            stars.zPosition = -1
+            addChild(stars)
         }
         
         /* Setup your scene here */
-        satellite = childNodeWithName("satellite") as! SKSpriteNode
-        satellite.physicsBody?.categoryBitMask = PhysicsCatagory.satellite
-        satellite.physicsBody?.contactTestBitMask = PhysicsCatagory.asteroid
-        playButton = childNodeWithName("playButton") as! SKSpriteNode
-        playButton.hidden = true
-        pauseButton = childNodeWithName("pauseButton") as! SKSpriteNode
-        minuteTimeLabel = childNodeWithName("minuteTimeLable") as! SKLabelNode
-        hourTimeLabel = childNodeWithName("hourTimeLabel") as! SKLabelNode
-        dayTimeLabel = childNodeWithName("dayTimeLabel") as! SKLabelNode
-        asteroidsDodgedLabel = childNodeWithName("asteroidsDodgedLabel") as! SKLabelNode
+        satellite = childNodeWithName("satellite") as? SKSpriteNode
+        satellite?.physicsBody?.categoryBitMask = PhysicsCatagory.satellite
+        satellite?.physicsBody?.contactTestBitMask = PhysicsCatagory.asteroid
+        playButton = childNodeWithName("playButton") as? SKSpriteNode
+        playButton?.hidden = true
+        pauseButton = childNodeWithName("pauseButton") as? SKSpriteNode
+        minuteTimeLabel = childNodeWithName("minuteTimeLable") as? SKLabelNode
+        hourTimeLabel = childNodeWithName("hourTimeLabel") as? SKLabelNode
+        dayTimeLabel = childNodeWithName("dayTimeLabel") as? SKLabelNode
+        asteroidsDodgedLabel = childNodeWithName("asteroidsDodgedLabel") as? SKLabelNode
         
         //Spawn Asteroids
         let spawnRandomAsteroid = SKAction.runBlock(spawnAsteroid)
@@ -89,14 +89,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         } else if nodes.name == "playButton" {
             resumeGame()
-
+            
             
         } else if nodes.name == "startGameButton" {
-   
-    
+            
+            
         } else {
             let moveTo = SKAction.moveTo(touchLocation, duration: 1.0)
-            satellite.runAction(moveTo)
+            satellite?.runAction(moveTo)
         }
         
         if touch.tapCount == 2 {
@@ -130,11 +130,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func CollisionWithAsteroid(Asteroid: SKSpriteNode, Satellite: SKSpriteNode) {
-        satellite.removeFromParent()
+        satellite?.removeFromParent()
         Asteroid.removeFromParent()
         spawnBrokenSat(Satellite.position)
         spawnBrokenAsteroid(Asteroid.position)
-
+        
         enumerateChildNodesWithName("asteroid") { //Changes the Asteroid name so its not counted after you die
             asteroid,_ in
             asteroid.name = "dontCountMe"
@@ -184,7 +184,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         broken4.name = "broken4"
         broken4.runAction(SKAction.sequence([waitTime, actionDone]))
         
-   
+        
     }
     
     
@@ -192,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let brokensat1 = SKSpriteNode(imageNamed: "brokenSat1")
         let brokensat2 = SKSpriteNode(imageNamed: "brokenSat2")
         let brokensat3 = SKSpriteNode(imageNamed: "brokenSat3")
-    
+        
         addChild(brokensat1)
         addChild(brokensat2)
         addChild(brokensat3)
@@ -219,9 +219,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         brokensat3.runAction(SKAction.sequence([waitTime, actionDone]))
         
     }
-
-
-
+    
+    
+    
     func randomNumber(min min: CGFloat, max: CGFloat) -> CGFloat {
         let random = CGFloat(GKRandomSource.sharedRandom().nextUniform())
         return random * (max - min) + min / 1
@@ -255,7 +255,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func SpawnBullets(){
         let bullet = SKSpriteNode(imageNamed: "bullet.png")
-        bullet.position = CGPointMake(satellite.position.x, satellite.position.y + 75)
+        bullet.position = CGPointMake(satellite!.position.x, satellite!.position.y + 75)
         let action = SKAction.moveToY(self.size.height + 10, duration: 0.5)
         let actionDone = SKAction.removeFromParent()
         bullet.runAction(SKAction.sequence([action, actionDone]))
@@ -268,7 +268,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(bullet)
         
     }
-
+    
     func updateMissionTime() {
         minute++
         
@@ -281,43 +281,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             day++
             hour = 0
         }
-        minuteTimeLabel.text = "\(minute)"
-        hourTimeLabel.text = "\(hour)"
-        dayTimeLabel.text = "\(day)"
+        minuteTimeLabel!.text = "\(minute)"
+        hourTimeLabel!.text = "\(hour)"
+        dayTimeLabel!.text = "\(day)"
     }
-
+    
     
     func pauseGame() {
         self.view!.paused = true
     }
     
     func resumeGame() {
-        playButton.hidden = true
-        pauseButton.hidden = false
+        playButton!.hidden = true
+        pauseButton!.hidden = false
         self.view?.paused = false
         
     }
     
     func showPlayButton() {
-        pauseButton.hidden = true
-        playButton.hidden = false
+        pauseButton!.hidden = true
+        playButton!.hidden = false
     }
     
     func newGame() {
         if  let scene = GameScene(fileNamed:"GameScene") {
-                
+            
             scene.scaleMode = .AspectFill
             view?.presentScene(scene)
         }
     }
-   
+    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         enumerateChildNodesWithName("asteroid") {
             asteroid,_ in
             if asteroid.position.y <= 3 {
                 let newdodgeCount = ++self.dodgedAsteroids
-                self.asteroidsDodgedLabel.text = "\(newdodgeCount)"
+                self.asteroidsDodgedLabel!.text = "\(newdodgeCount)"
                 asteroid.removeFromParent()
             }
             
